@@ -1,0 +1,1 @@
+{"expected":[{"ruleId":"EC-SECRET-001","severity":"high"}],"nonFindings":["EC-AUTHZ-001"]}

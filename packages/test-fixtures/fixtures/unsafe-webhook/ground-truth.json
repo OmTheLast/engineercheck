@@ -1,0 +1,1 @@
+{"expected":[{"ruleId":"EC-ASYNC-001","severity":"high"},{"ruleId":"EC-INPUT-001","severity":"medium"}],"nonFindings":["EC-SECRET-001"]}

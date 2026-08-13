@@ -1,0 +1,25 @@
+{
+  "name": "@engineercheck/dashboard",
+  "version": "0.1.0",
+  "type": "module",
+  "exports": "./src/server.ts",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && tsc -p tsconfig.server.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.server.json --noEmit",
+    "start": "tsx src/server.ts"
+  },
+  "dependencies": {
+    "@engineercheck/report-schema": "workspace:*",
+    "express": "^5.2.1",
+    "react": "^19.2.1",
+    "react-dom": "^19.2.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.1",
+    "vite": "^7.2.6"
+  }
+}

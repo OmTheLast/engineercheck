@@ -1,0 +1,18 @@
+{
+  "name": "@engineercheck/cli",
+  "version": "0.1.0",
+  "type": "module",
+  "bin": {
+    "engineercheck": "bin/engineercheck.mjs"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@engineercheck/analyzer": "workspace:*",
+    "@engineercheck/dashboard": "workspace:*",
+    "@engineercheck/report-schema": "workspace:*",
+    "tsx": "^4.21.0"
+  }
+}

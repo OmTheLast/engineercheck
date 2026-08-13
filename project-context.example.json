@@ -1,0 +1,18 @@
+{
+  "productDescription": "A team task tracker",
+  "intendedUsers": "Small private teams",
+  "visibility": "private",
+  "authenticationMethod": "Supabase email magic link",
+  "dataTypes": ["profiles", "tasks"],
+  "sensitiveData": false,
+  "payments": false,
+  "fileUploads": false,
+  "userGeneratedContent": true,
+  "adminRoles": true,
+  "externalApis": [],
+  "aiFeatures": false,
+  "expectedTraffic": "under 1,000 monthly active users",
+  "deploymentProvider": "Vercel",
+  "databaseProvider": "Supabase",
+  "backupExpectations": "daily with a quarterly restore drill"
+}
