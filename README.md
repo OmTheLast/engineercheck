@@ -1,32 +1,51 @@
-# EngineerCheck
+<h1 align="center">EngineerCheck</h1>
 
-EngineerCheck is a local-first release-readiness reviewer for TypeScript/JavaScript web applications. It combines cautious static heuristics with an evidence-first engineering standard. It does **not** claim that a clean report proves a system safe.
+**Scan a JavaScript or TypeScript app for release-readiness findings with file evidence and explicit uncertainty.**
 
-## Install and use
+Node.js 20+. pnpm 11. Local static analysis; default scans execute no project code and contact no AI provider.
 
-Prerequisites: Node.js 20+ and pnpm 11.
+By Om Patnaik · repository created August 2026.
+
+## Install
+
+| Platform / path | Start here |
+| --- | --- |
+| From source | `pnpm install`, then `pnpm build` |
+
+Run `pnpm scan /path/to/project` and inspect the HTML/JSON findings. To try a controlled example, scan `packages/test-fixtures/fixtures/well-constructed`.
 
 ```bash
-pnpm install
-pnpm build
-pnpm scan /path/to/project
+pnpm scan packages/test-fixtures/fixtures/well-constructed
 ```
 
-During development, run the source CLI directly:
+## Why
+
+You need to inspect an app before release without treating a checklist as proof of safety. EngineerCheck reads bounded source files and applies documented heuristics. A clean report does not prove security, and the current release has no runtime or network AI adapter.
+
+## Inspect findings in context
+
+Pass a project-context JSON file or use `--interactive`. Findings explain their evidence and uncertainty; generated reports are also copied to `.engineercheck/reports` for dashboard history.
+
+## Review the scan boundary
+
+Default scans skip symlinks, binaries, generated/vendor trees, oversized files, and reads beyond the aggregate limit. Reports redact suspected values, but paths and findings can still be sensitive metadata.
+
+## Notes from building it
+
+I made evidence and uncertainty part of the report format rather than adding them after a scan. Fixture evaluation checks that the rules distinguish known examples without running the scanned code. I would require a documented runtime profile before adding executable checks.
+
+## Commands
 
 ```bash
-pnpm scan /path/to/project --context ./project-context.json --output ./engineercheck-report --format html,json
-pnpm scan /path/to/project --interactive
-pnpm --filter @engineercheck/dashboard dev
-pnpm dashboard
+pnpm scan /path/to/project       # create a source-based report
+pnpm scan /path/to/project --interactive  # supply project context
+pnpm dashboard                   # open report history after building
+pnpm eval                        # evaluate rules on fixtures
 ```
 
-The production dashboard defaults to `http://127.0.0.1:4173` and reads `.engineercheck/reports` from the current directory. Build it before starting the dashboard.
-
-## Verification commands
+## Verify it yourself
 
 ```bash
-pnpm format:check
 pnpm lint
 pnpm typecheck
 pnpm test
@@ -34,10 +53,10 @@ pnpm build
 pnpm eval
 ```
 
-## Safety boundary
+These checks cover source quality, schemas, analyzer behaviour, build output, and fixture evaluation. Inspect [analysis limitations](docs/analysis-limitations.md) before interpreting a passing fixture set as coverage of a real application.
 
-Default scans read bounded text files only. Symlinks, binaries, generated/vendor directories, files over 512 KB, and repositories over the aggregate read limit are skipped. EngineerCheck does not run package scripts or application code, print detected secret values, upload files, audit dependencies, or contact an AI provider. `--runtime-checks` is explicit; this release has no runtime profile and tells the user that it ran no commands. `--ai` likewise explains that no network adapter is enabled.
+## Credits, license and pointers
 
-Reports are written to the selected output directory and copied into `.engineercheck/reports` for dashboard history. Treat reports as sensitive metadata even though suspected values are redacted.
+Built with TypeScript, pnpm, React/Vite, Vitest, and the packages named in `package.json`. No source license file is present. [Spec](docs/product-spec.md) · [Engineering standard](docs/engineering-standard.md).
 
-See [product spec](docs/product-spec.md), [architecture](docs/architecture.md), [standard](docs/engineering-standard.md), and [limitations](docs/analysis-limitations.md).
+[Full setup, original notes, and project history](README-DETAILS.md).
